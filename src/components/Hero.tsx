@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ArrowDown } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -240,13 +241,23 @@ export const Hero: React.FC = () => {
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80 inline-block animate-pulse" />
           <span>CAMILLE &copy;2026</span>
         </div>
-        <div className="hidden sm:block text-white/30">
+        <div className="hidden md:block text-white/30">
           40.7128&deg; N, 74.0060&deg; W
         </div>
-        <div className="text-white/50 hover:text-white/80 transition-colors">
-          [ INTERACTIVE CURSOR TRACKING ]
-        </div>
+        <a
+          href="#about"
+          className="group flex items-center gap-2 text-white/60 hover:text-[#dfb8aa] transition-colors cursor-pointer"
+        >
+          <span>SCROLL TO EXPLORE</span>
+          <ArrowDown className="w-3 h-3 text-[#dfb8aa] transition-transform group-hover:translate-y-0.5 animate-bounce" />
+        </a>
       </div>
+
+      {/* Bottom Atmospheric Gradient Transition to Section 01 */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-40 sm:h-56 bg-gradient-to-t from-[#0a0909] via-[#0a0909]/75 to-transparent pointer-events-none z-[1]"
+        aria-hidden="true"
+      />
     </section>
   );
 };

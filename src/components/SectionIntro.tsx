@@ -8,8 +8,15 @@ export const SectionIntro: React.FC = () => {
     <section
       id="about"
       ref={ref}
-      className="relative z-10 w-full max-w-full bg-[#0a0909] text-[#f7f4ed] py-16 sm:py-20 lg:py-24 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10 overflow-hidden"
+      className="relative z-10 w-full max-w-full bg-[#0a0909] text-[#f7f4ed] pt-20 sm:pt-24 pb-16 sm:pb-20 lg:pb-24 px-6 sm:px-10 md:px-14 lg:px-16 overflow-hidden"
     >
+      {/* Seamless Transition Glow Border from Hero */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#dfb8aa]/50 to-transparent pointer-events-none z-10" />
+      <div
+        className="absolute -top-16 left-1/2 -translate-x-1/2 w-full max-w-4xl h-40 bg-gradient-to-b from-[#dfb8aa]/10 via-[#dfb8aa]/[0.02] to-transparent blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+
       <div className="w-full max-w-7xl mx-auto">
         {/* Subtle Section Index & Marker */}
         <div
