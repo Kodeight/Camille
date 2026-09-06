@@ -134,3 +134,30 @@ body {
   }
 }
 
+/* Custom Thin Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070707;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #252323;
+  border-radius: 9999px;
+  border: 1px solid #070707;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #383434;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #252323 #070707;
+}
+
+

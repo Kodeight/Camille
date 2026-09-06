@@ -10,7 +10,7 @@ export const WebDevelopment: React.FC = () => {
     <section
       id="development"
       ref={ref}
-      className="relative z-10 w-full max-w-full bg-[#0c0a0a] text-[#f7f4ed] pt-10 sm:pt-14 pb-10 sm:pb-14 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10 overflow-hidden"
+      className="relative z-10 w-full max-w-full bg-[#070707] text-[#f7f4ed] pt-10 sm:pt-14 pb-10 sm:pb-14 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/[0.04] overflow-hidden"
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Section Header */}
@@ -31,8 +31,8 @@ export const WebDevelopment: React.FC = () => {
             </p>
           </div>
 
-          <div className={`hidden lg:block text-right reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
-            <span className="text-[12px] uppercase tracking-widest text-[#dfb8aa]/80 bg-[#dfb8aa]/10 border border-[#dfb8aa]/20 px-3.5 py-1.5 rounded-full font-mono">
+          <div className={`reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
+            <span className="inline-block text-[11px] sm:text-[12px] uppercase tracking-widest text-[#dfb8aa]/80 bg-[#dfb8aa]/10 border border-[#dfb8aa]/20 px-3.5 py-1.5 rounded-full font-mono">
               PRODUCTION CASE STUDY
             </span>
           </div>
@@ -55,32 +55,31 @@ export const WebDevelopment: React.FC = () => {
                     style={{ transitionDelay: '150ms' }}
                   >
                     <div>
-                      {/* Project Meta Bar */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="text-[12px] uppercase tracking-wider text-[#dfb8aa] font-mono">
+                      {/* Project Meta Bar — Real Two-Badge Layout */}
+                      <div className="flex flex-wrap items-center gap-2.5 mb-5">
+                        <span className="text-[11px] uppercase tracking-wider text-[#dfb8aa] bg-[#dfb8aa]/10 border border-[#dfb8aa]/25 px-3 py-1 rounded-full font-mono font-medium">
                           {project.year}
                         </span>
-                        <span className="text-white/20">•</span>
-                        <span className="text-[12px] text-white/70 tracking-wide font-light">
+                        <span className="text-[11px] uppercase tracking-wider text-white/70 bg-white/[0.04] border border-white/10 px-3 py-1 rounded-full font-mono">
                           {project.role}
                         </span>
                       </div>
 
                       {/* Title & Subtitle */}
-                      <div className="flex items-baseline gap-4 mb-2">
+                      <div className="flex items-center gap-3 mb-2 flex-wrap">
                         <h3
-                          className="text-[#fbf9f5] text-[38px] sm:text-[46px] font-normal leading-tight tracking-tight"
+                          className="text-[#fbf9f5] text-[34px] sm:text-[42px] font-normal leading-tight tracking-tight"
                           style={{ fontFamily: 'var(--font-editorial)' }}
                         >
                           {project.title}
                         </h3>
-                        <span className="text-[13px] uppercase tracking-widest text-emerald-400/90 flex items-center gap-1">
+                        <span className="text-[11px] uppercase tracking-wider text-emerald-400/90 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-mono">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                           Live
                         </span>
                       </div>
 
-                      <div className="text-[15px] text-[#dfb8aa] font-light mb-5">
+                      <div className="text-[14px] sm:text-[15px] text-[#dfb8aa] font-light mb-5">
                         {project.subtitle}
                       </div>
 
@@ -164,8 +163,8 @@ export const WebDevelopment: React.FC = () => {
                         <div className="w-4 h-4" />
                       </div>
 
-                      {/* Main Showcase Image Frame */}
-                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#181515]">
+                      {/* Main Showcase Image Frame — Shorter, more elegant 16/8 ratio */}
+                      <div className="relative aspect-[16/8] w-full overflow-hidden bg-[#181515]">
                         <img
                           src={project.image}
                           alt={`${project.title} live interface preview`}

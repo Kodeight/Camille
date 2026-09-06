@@ -45,7 +45,7 @@ export const webProjects: WebProject[] = [
       'Engineered dynamic cart and localized delivery flow across 69 Algerian wilayas',
       'Editorial high-fashion lookbook aesthetic paired with instant responsiveness',
       'Optimized micro-interactions, swipeable collections, and quick cart drawers',
-      'Production deployment on Vercel with clean modular component architecture',
+      'Production deployment with clean modular component architecture and high performance hosting',
     ],
     featured: true,
     year: '2026',

@@ -8,7 +8,7 @@ export const GraphicDesign: React.FC = () => {
   return (
     <section
       id="graphic-design"
-      className="relative z-10 w-full max-w-full bg-[#090808] text-[#f7f4ed] pt-10 sm:pt-14 pb-10 sm:pb-14 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10 overflow-hidden"
+      className="relative z-10 w-full max-w-full bg-[#070707] text-[#f7f4ed] pt-10 sm:pt-14 pb-10 sm:pb-14 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/[0.04] overflow-hidden"
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Section Header */}
@@ -73,7 +73,7 @@ export const GraphicDesign: React.FC = () => {
                 }}
               >
                 {/* Project Media Container */}
-                <div className={`relative w-full ${aspectClass} overflow-hidden bg-[#161313]`}>
+                <div className={`relative w-full ${aspectClass} max-h-[460px] overflow-hidden bg-[#161313]`}>
                   <img
                     src={project.image}
                     alt={project.title}

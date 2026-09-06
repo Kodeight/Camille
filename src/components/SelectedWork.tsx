@@ -143,14 +143,14 @@ export const SelectedWork: React.FC = () => {
               <article
                 key={project.id}
                 className={`reveal-fade-up group relative flex flex-col bg-[#0f0d0d] border border-white/10 rounded-2xl overflow-hidden hover:border-[#dfb8aa]/40 transition-all duration-500 hover:-translate-y-1.5 ${
-                  isFeaturedWide ? 'lg:col-span-3 lg:flex-row' : ''
+                  isFeaturedWide ? 'lg:col-span-3 lg:flex-row lg:max-h-[380px]' : ''
                 } ${isIntersecting ? 'is-revealed' : ''}`}
                 style={{
                   transitionDelay: `${delayMs}ms`,
                 }}
               >
                 {/* Project Image Frame */}
-                <div className={`relative ${isFeaturedWide ? 'lg:w-3/5 aspect-[16/9] lg:aspect-auto' : 'aspect-[4/3]'} w-full overflow-hidden bg-[#161313]`}>
+                <div className={`relative ${isFeaturedWide ? 'lg:w-3/5 aspect-[16/9] lg:max-h-[380px]' : 'aspect-[4/3]'} w-full overflow-hidden bg-[#161313]`}>
                   <img
                     src={project.image}
                     alt={project.title}
@@ -172,7 +172,7 @@ export const SelectedWork: React.FC = () => {
                       {project.displayCategory}
                     </span>
                     {project.isWeb && (
-                      <span className="text-[11px] uppercase tracking-wider text-[#dfb8aa] bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-[#dfb8aa]/30">
+                      <span className="text-[11px] uppercase tracking-wider text-[#dfb8aa] bg-black/60 backdrop-blur-md px-3 py-1 rounded-full border border-[#dfb8aa]/30">
                         LIVE APP
                       </span>
                     )}
@@ -216,7 +216,7 @@ export const SelectedWork: React.FC = () => {
                       <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </a>
                     <span className="text-[11px] text-white/30 tracking-widest uppercase">
-                      {project.isWeb ? 'VERCEL' : 'BEHANCE'}
+                      {project.isWeb ? 'LIVE SITE' : 'BEHANCE'}
                     </span>
                   </div>
                 </div>

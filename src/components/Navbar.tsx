@@ -35,22 +35,16 @@ export const Navbar: React.FC = () => {
         <a
           id="brand-logo"
           href="#home"
-          className="flex items-center gap-1.5 select-none group cursor-pointer"
+          className="flex items-center select-none group cursor-pointer"
           aria-label="Camille - Back to top"
         >
           <span
-            className={`tracking-tight text-white font-normal transition-all duration-300 ${
-              scrolled ? 'text-[19px] sm:text-[21px]' : 'text-[21px] sm:text-[23px]'
+            className={`text-[#dfb8aa] tracking-wide font-normal transition-all duration-300 ${
+              scrolled ? 'text-[25px] sm:text-[27px]' : 'text-[27px] sm:text-[29px]'
             }`}
-            style={{ fontFamily: 'var(--font-heading)' }}
+            style={{ fontFamily: "var(--font-signature), 'Pinyon Script', cursive" }}
           >
-            Camille
-          </span>
-          <span
-            className="text-[#dfb8aa] text-[18px] sm:text-[20px] leading-none transition-transform duration-700 group-hover:rotate-180"
-            aria-hidden="true"
-          >
-            .
+            Cami.
           </span>
         </a>
 

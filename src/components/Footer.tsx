@@ -9,98 +9,82 @@ export const Footer: React.FC = () => {
   return (
     <footer
       id="site-footer"
-      className="relative z-10 w-full bg-[#050505] text-[#f7f4ed] pt-14 pb-10 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10"
+      className="relative z-10 w-full bg-[#070707] text-[#f7f4ed] pt-16 pb-10 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/[0.04]"
     >
-      <div className="w-full max-w-7xl mx-auto">
-        {/* Top Footer Row */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-16 border-b border-white/10 items-start">
-          {/* Left Brand Identity */}
-          <div className="md:col-span-4">
-            <div className="flex items-center gap-2 mb-3">
-              <span
-                className="text-[26px] sm:text-[30px] tracking-tight text-white font-normal"
-                style={{ fontFamily: 'var(--font-heading)' }}
-              >
-                Camille.
-              </span>
-              <span className="text-[#dfb8aa] text-[18px] leading-none" aria-hidden="true">
-                ✳︎
-              </span>
+      <div className="w-full max-w-7xl mx-auto flex flex-col gap-12">
+        {/* Core Footer Row */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-10 pb-12 border-b border-white/[0.04]">
+          {/* LEFT: Logo & Identity */}
+          <div className="flex flex-col gap-2">
+            <div
+              className="text-[32px] sm:text-[36px] text-[#dfb8aa] tracking-wide leading-none"
+              style={{ fontFamily: "var(--font-signature), 'Pinyon Script', cursive" }}
+            >
+              Cami.
             </div>
-            <p className="text-[#99918b] text-[14px] font-light max-w-xs leading-relaxed">
-              Creative developer and graphic designer crafting intentional web experiences and visual identities.
+            <p className="text-[#99918b] text-[13px] font-light max-w-xs leading-relaxed mt-1">
+              Creative web development and brand identity design.
             </p>
           </div>
 
-          {/* Center Navigation Links */}
-          <div className="md:col-span-5 flex flex-wrap gap-x-8 gap-y-3 text-[14px] font-light text-white/80">
-            <a href="#home" className="hover:text-[#dfb8aa] transition-colors">
+          {/* CENTER: Clean Navigation Directory */}
+          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-[13px] sm:text-[14px] font-light text-white/60">
+            <a href="#home" className="hover:text-[#dfb8aa] transition-colors duration-300">
               Home
             </a>
-            <a href="#about" className="hover:text-[#dfb8aa] transition-colors">
+            <span className="text-white/10 hidden sm:inline">•</span>
+            <a href="#about" className="hover:text-[#dfb8aa] transition-colors duration-300">
               About
             </a>
-            <a href="#projects" className="hover:text-[#dfb8aa] transition-colors">
+            <span className="text-white/10 hidden sm:inline">•</span>
+            <a href="#projects" className="hover:text-[#dfb8aa] transition-colors duration-300">
               Projects
             </a>
-            <a href="#development" className="hover:text-[#dfb8aa] transition-colors">
-              Web Development
-            </a>
-            <a href="#graphic-design" className="hover:text-[#dfb8aa] transition-colors">
-              Graphic Design
-            </a>
-            <a href="#services" className="hover:text-[#dfb8aa] transition-colors">
+            <span className="text-white/10 hidden sm:inline">•</span>
+            <a href="#services" className="hover:text-[#dfb8aa] transition-colors duration-300">
               Services
             </a>
-            <a href="#process" className="hover:text-[#dfb8aa] transition-colors">
-              Process
-            </a>
-            <a href="#contact" className="hover:text-[#dfb8aa] transition-colors">
+            <span className="text-white/10 hidden sm:inline">•</span>
+            <a href="#contact" className="hover:text-[#dfb8aa] transition-colors duration-300">
               Contact
             </a>
-          </div>
+          </nav>
 
-          {/* Right Social Archive */}
-          <div className="md:col-span-3 flex flex-col md:items-end justify-between">
-            <div className="space-y-2">
-              <a
-                href="https://www.behance.net/cameliatimsili"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-[14px] text-white/80 hover:text-[#dfb8aa] transition-colors font-light"
-              >
-                <span>Behance Archive</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-              <div>
-                <a
-                  href="http://atlas-dz.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[14px] text-white/80 hover:text-[#dfb8aa] transition-colors font-light"
-                >
-                  <span>Atlas Project</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={scrollToTop}
-              className="mt-6 md:mt-8 inline-flex items-center gap-2 text-[12px] uppercase tracking-widest text-[#dfb8aa] hover:text-white transition-colors cursor-pointer group"
+          {/* RIGHT: External Archive & Top Links */}
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-[13px] sm:text-[14px] text-white/60 font-light">
+            <a
+              href="https://www.behance.net/cameliatimsili"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#dfb8aa] transition-colors inline-flex items-center gap-1.5 group"
             >
-              <span>Back to top</span>
-              <ArrowUp className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5" />
+              <span>Behance Archive</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+            </a>
+            <a
+              href="http://atlas-dz.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#dfb8aa] transition-colors inline-flex items-center gap-1.5 group"
+            >
+              <span>Atlas Project</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+            </a>
+            <button
+              onClick={scrollToTop}
+              className="hover:text-[#dfb8aa] transition-colors inline-flex items-center gap-1 group cursor-pointer"
+            >
+              <span>Back to Top</span>
+              <ArrowUp className="w-3.5 h-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
             </button>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-[12px] text-white/40 font-light">
+        {/* BOTTOM Row: Rights, Intention Tag */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-[12px] text-white/30 font-light">
           <div>&copy; 2026 Camille. All rights reserved.</div>
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#dfb8aa]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#dfb8aa]/60" />
             <span>Designed &amp; developed with intention.</span>
           </div>
         </div>
