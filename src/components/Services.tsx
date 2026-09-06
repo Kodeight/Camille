@@ -19,12 +19,8 @@ export const Services: React.FC = () => {
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Header */}
-        <div
-          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 transition-all duration-700 ${
-            isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-        >
-          <div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className={`reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
               <span>05 / CAPABILITIES & SERVICES</span>
@@ -40,7 +36,7 @@ export const Services: React.FC = () => {
             </p>
           </div>
 
-          <div className="text-right hidden sm:block">
+          <div className={`text-right hidden sm:block reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
             <a
               href="#contact"
               className="inline-flex items-center gap-2 text-[13px] text-[#dfb8aa] hover:text-white transition-colors underline underline-offset-4 tracking-wider uppercase font-light"
@@ -55,12 +51,16 @@ export const Services: React.FC = () => {
         <div className="divide-y divide-white/10 border-y border-white/10">
           {servicesList.map((service, index) => {
             const isExpanded = expandedIndex === index;
+            const delayMs = index * 90;
 
             return (
               <div
                 key={service.number}
                 onClick={() => toggleExpand(index)}
-                className="group relative py-8 sm:py-10 transition-all duration-500 cursor-pointer hover:bg-white/[0.02] px-3 sm:px-6 rounded-xl"
+                className={`reveal-fade-up group relative py-8 sm:py-10 transition-all duration-500 cursor-pointer hover:bg-white/[0.02] px-3 sm:px-6 rounded-xl ${
+                  isIntersecting ? 'is-revealed' : ''
+                }`}
+                style={{ transitionDelay: `${delayMs}ms` }}
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-8">
                   {/* Left: Number & Title */}

@@ -141,12 +141,8 @@ export const ContactForm: React.FC = () => {
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Header */}
-        <div
-          className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 mb-16 transition-all duration-700 ${
-            isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-        >
-          <div className="lg:col-span-7">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 mb-16">
+          <div className={`lg:col-span-7 reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
               <span>10 / INQUIRIES & COLLABORATIONS</span>
@@ -162,7 +158,7 @@ export const ContactForm: React.FC = () => {
             </p>
           </div>
 
-          <div className="lg:col-span-5 flex flex-col justify-end">
+          <div className={`lg:col-span-5 flex flex-col justify-end reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="bg-[#110f0f] border border-white/10 rounded-2xl p-6 flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <span className="text-[12px] uppercase tracking-wider text-white/50 font-mono">
@@ -201,7 +197,12 @@ export const ContactForm: React.FC = () => {
         </div>
 
         {/* Real Contact Form Container */}
-        <div className="bg-[#0e0c0c] border border-white/10 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-2xl">
+        <div
+          className={`reveal-fade-up bg-[#0e0c0c] border border-white/10 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-2xl ${
+            isIntersecting ? 'is-revealed' : ''
+          }`}
+          style={{ transitionDelay: '150ms' }}
+        >
           {status === 'success' ? (
             <div className="py-16 text-center max-w-lg mx-auto flex flex-col items-center animate-fade-in">
               <div className="w-16 h-16 rounded-full bg-[#dfb8aa]/15 border border-[#dfb8aa]/40 flex items-center justify-center text-[#dfb8aa] mb-6">

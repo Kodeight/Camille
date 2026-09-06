@@ -14,12 +14,8 @@ export const GraphicDesign: React.FC = () => {
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Section Header */}
-        <div
-          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 transition-all duration-700 ${
-            isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-        >
-          <div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className={`reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
               <span>04 / GRAPHIC DESIGN & IDENTITY</span>
@@ -35,7 +31,7 @@ export const GraphicDesign: React.FC = () => {
             </p>
           </div>
 
-          <div className="text-right">
+          <div className={`text-right reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
             <a
               href="https://www.behance.net/cameliatimsili"
               target="_blank"
@@ -69,9 +65,11 @@ export const GraphicDesign: React.FC = () => {
             const delayMs = (index % 4) * 100;
 
             return (
-              <div
+              <article
                 key={project.id}
-                className={`${colSpan} group relative flex flex-col bg-[#110f0f] rounded-2xl border border-white/10 overflow-hidden hover:border-[#dfb8aa]/40 transition-all duration-500`}
+                className={`reveal-fade-up ${colSpan} group relative flex flex-col bg-[#110f0f] rounded-2xl border border-white/10 overflow-hidden hover:border-[#dfb8aa]/40 transition-all duration-500 ${
+                  isIntersecting ? 'is-revealed' : ''
+                }`}
                 style={{
                   transitionDelay: `${delayMs}ms`,
                 }}
@@ -152,7 +150,7 @@ export const GraphicDesign: React.FC = () => {
                     </span>
                   </div>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>

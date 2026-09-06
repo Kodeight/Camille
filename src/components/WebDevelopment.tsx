@@ -15,12 +15,8 @@ export const WebDevelopment: React.FC = () => {
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Section Header */}
-        <div
-          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 transition-all duration-700 ${
-            isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-        >
-          <div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className={`reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
               <span>03 / WEB DEVELOPMENT</span>
@@ -36,8 +32,8 @@ export const WebDevelopment: React.FC = () => {
             </p>
           </div>
 
-          <div className="hidden lg:block text-right">
-            <span className="text-[12px] uppercase tracking-widest text-[#dfb8aa]/80 bg-[#dfb8aa]/10 border border-[#dfb8aa]/20 px-3.5 py-1.5 rounded-full">
+          <div className={`hidden lg:block text-right reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
+            <span className="text-[12px] uppercase tracking-widest text-[#dfb8aa]/80 bg-[#dfb8aa]/10 border border-[#dfb8aa]/20 px-3.5 py-1.5 rounded-full font-mono">
               PRODUCTION CASE STUDY
             </span>
           </div>
@@ -58,7 +54,12 @@ export const WebDevelopment: React.FC = () => {
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
                   {/* Left Column: Project Overview & Specs */}
-                  <div className="lg:col-span-5 flex flex-col justify-between">
+                  <div
+                    className={`reveal-fade-up lg:col-span-5 flex flex-col justify-between ${
+                      isIntersecting ? 'is-revealed' : ''
+                    }`}
+                    style={{ transitionDelay: '150ms' }}
+                  >
                     <div>
                       {/* Project Meta Bar */}
                       <div className="flex items-center gap-3 mb-4">
@@ -149,7 +150,12 @@ export const WebDevelopment: React.FC = () => {
                   </div>
 
                   {/* Right Column: Browser Viewport Mockup */}
-                  <div className="lg:col-span-7 flex flex-col gap-4">
+                  <div
+                    className={`reveal-scale lg:col-span-7 flex flex-col gap-4 ${
+                      isIntersecting ? 'is-revealed' : ''
+                    }`}
+                    style={{ transitionDelay: '250ms' }}
+                  >
                     <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-black/60 shadow-2xl group">
                       {/* Browser Window Bar */}
                       <div className="bg-[#1b1818] px-4 py-3 border-b border-white/10 flex items-center justify-between select-none">

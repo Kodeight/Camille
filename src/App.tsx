@@ -27,7 +27,7 @@ export default function App() {
       <Hero />
 
       {/* Editorial Content Sections (Layered cleanly over background on scroll) */}
-      <div className="relative z-10 w-full">
+      <main className="relative z-10 w-full">
         <SectionIntro />
         <SelectedWork />
         <WebDevelopment />
@@ -38,8 +38,10 @@ export default function App() {
         <SkillsExperience />
         <Capabilities />
         <ContactForm />
-        <Footer />
-      </div>
+      </main>
+
+      {/* Global Footer */}
+      <Footer />
     </div>
   );
 }

@@ -26,8 +26,8 @@ export const AboutCamille: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Big Editorial Statement */}
           <div
-            className={`lg:col-span-7 transition-all duration-1000 ${
-              isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            className={`reveal-slide-left lg:col-span-7 ${
+              isIntersecting ? 'is-revealed' : ''
             }`}
           >
             <h2
@@ -65,9 +65,10 @@ export const AboutCamille: React.FC = () => {
 
           {/* Right Column: Editorial Details Matrix & Portfolio Evidence */}
           <div
-            className={`lg:col-span-5 flex flex-col gap-6 transition-all duration-1000 delay-200 ${
-              isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            className={`reveal-slide-right lg:col-span-5 flex flex-col gap-6 ${
+              isIntersecting ? 'is-revealed' : ''
             }`}
+            style={{ transitionDelay: '150ms' }}
           >
             {/* Core Values Card */}
             <div className="bg-[#131111] border border-white/10 rounded-2xl p-7 sm:p-8">

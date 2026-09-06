@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import { useTypewriter } from '../hooks/useTypewriter';
-
-const TYPEWRITER_TEXT =
-  'Glad you stopped in. Good taste tends to find us. Now, what are we building?';
 
 export const Hero: React.FC = () => {
-  const { displayed, done } = useTypewriter(TYPEWRITER_TEXT, 36, 800);
   const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = async (e: React.MouseEvent) => {
@@ -20,7 +15,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <main
+    <section
       id="hero-section"
       className="relative z-[1] w-full min-h-screen flex flex-col justify-between pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-10 px-6 sm:px-10 md:px-14 lg:px-16 pointer-events-none overflow-hidden"
     >
@@ -59,29 +54,12 @@ export const Hero: React.FC = () => {
             {/* 3. Supporting Copy */}
             <p
               id="supporting-copy"
-              className="text-[#ded8cb]/85 text-[15px] sm:text-[16px] leading-relaxed font-light max-w-[400px] mb-4"
+              className="text-[#ded8cb]/85 text-[15px] sm:text-[16px] leading-relaxed font-light max-w-[420px] mb-7 sm:mb-8"
             >
               A developer who builds and a designer who creates beautiful experiences.
             </p>
 
-            {/* 4. Restrained Secondary A.R.I.A Typewriter Element */}
-            <div
-              id="typewriter-secondary"
-              className="flex items-center gap-2.5 py-1.5 px-3 rounded-full bg-black/40 border border-white/10 backdrop-blur-sm mb-6 sm:mb-7 max-w-fit text-[12px] text-[#e3ded4]/70 font-mono tracking-wide"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#dfb8aa] animate-pulse shrink-0" />
-              <span className="text-white/40 uppercase text-[10px] tracking-widest font-sans">A.R.I.A</span>
-              <span className="text-white/20">|</span>
-              <span className="truncate">{displayed}</span>
-              {!done && (
-                <span
-                  className="inline-block w-[1.5px] h-[1em] bg-[#dfb8aa] animate-blink shrink-0"
-                  aria-hidden="true"
-                />
-              )}
-            </div>
-
-            {/* 5. Interactive Action Pills */}
+            {/* 4. Interactive Action Pills */}
             <div
               id="action-pills"
               className="flex flex-wrap items-center gap-2 sm:gap-2.5"
@@ -254,8 +232,8 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Bottom Editorial Status Line */}
-      <footer
-        id="hero-footer-bar"
+      <div
+        id="hero-status-bar"
         className="w-full max-w-7xl mx-auto flex items-center justify-between text-[10px] sm:text-[11px] text-white/40 tracking-[0.22em] uppercase font-light border-t border-white/10 pt-4 mt-auto select-none pointer-events-auto"
       >
         <div className="flex items-center gap-2">
@@ -268,7 +246,7 @@ export const Hero: React.FC = () => {
         <div className="text-white/50 hover:text-white/80 transition-colors">
           [ INTERACTIVE CURSOR TRACKING ]
         </div>
-      </footer>
-    </main>
+      </div>
+    </section>
   );
 };

@@ -44,12 +44,8 @@ export const Capabilities: React.FC = () => {
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Header */}
-        <div
-          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 transition-all duration-700 ${
-            isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-        >
-          <div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className={`reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
               <span>09 / CAPABILITIES & RIGOR</span>
@@ -65,7 +61,7 @@ export const Capabilities: React.FC = () => {
             </p>
           </div>
 
-          <div className="text-white/40 text-[12px] font-mono tracking-widest hidden md:block">
+          <div className={`text-white/40 text-[12px] font-mono tracking-widest hidden md:block reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
             VERIFIED CRAFTSMANSHIP
           </div>
         </div>
@@ -79,7 +75,9 @@ export const Capabilities: React.FC = () => {
             return (
               <div
                 key={item.title}
-                className="bg-[#121010] border border-white/10 rounded-2xl p-7 flex flex-col justify-between hover:border-[#dfb8aa]/30 transition-all duration-500 hover:-translate-y-1"
+                className={`reveal-fade-up bg-[#121010] border border-white/10 rounded-2xl p-7 flex flex-col justify-between hover:border-[#dfb8aa]/30 transition-all duration-500 hover:-translate-y-1 ${
+                  isIntersecting ? 'is-revealed' : ''
+                }`}
                 style={{
                   transitionDelay: `${delayMs}ms`,
                 }}

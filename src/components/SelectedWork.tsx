@@ -81,12 +81,8 @@ export const SelectedWork: React.FC = () => {
       <div id="work" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
       <div className="w-full max-w-7xl mx-auto">
         {/* Header Section */}
-        <div
-          className={`flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16 transition-all duration-700 ${
-            isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-        >
-          <div>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
+          <div className={`reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
               <span>02 / PORTFOLIO</span>
@@ -102,8 +98,8 @@ export const SelectedWork: React.FC = () => {
             </p>
           </div>
 
-          <div className="text-right hidden md:block">
-            <span className="text-[13px] text-white/40 tracking-wider">
+          <div className={`text-right hidden md:block reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
+            <span className="text-[13px] text-white/40 tracking-wider font-mono">
               SHOWING {filteredProjects.length} OF {allProjects.length} PIECES
             </span>
           </div>
@@ -111,9 +107,10 @@ export const SelectedWork: React.FC = () => {
 
         {/* Category Filters */}
         <div
-          className={`flex items-center gap-2 sm:gap-3 overflow-x-auto pb-4 mb-12 sm:mb-16 scrollbar-none transition-all duration-700 delay-150 ${
-            isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          className={`reveal-fade-up flex items-center gap-2 sm:gap-3 overflow-x-auto pb-4 mb-12 sm:mb-16 scrollbar-none ${
+            isIntersecting ? 'is-revealed' : ''
           }`}
+          style={{ transitionDelay: '120ms' }}
           role="tablist"
           aria-label="Filter projects by category"
         >
@@ -147,7 +144,9 @@ export const SelectedWork: React.FC = () => {
             return (
               <article
                 key={project.id}
-                className="group relative flex flex-col bg-[#0f0d0d] border border-white/10 rounded-2xl overflow-hidden hover:border-[#dfb8aa]/40 transition-all duration-500 hover:-translate-y-1.5"
+                className={`reveal-fade-up group relative flex flex-col bg-[#0f0d0d] border border-white/10 rounded-2xl overflow-hidden hover:border-[#dfb8aa]/40 transition-all duration-500 hover:-translate-y-1.5 ${
+                  isIntersecting ? 'is-revealed' : ''
+                }`}
                 style={{
                   transitionDelay: `${delayMs}ms`,
                 }}
