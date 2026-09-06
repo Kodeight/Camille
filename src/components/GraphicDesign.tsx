@@ -1,22 +1,24 @@
 import React from 'react';
 import { graphicProjects } from '../data/projects';
 import { ArrowUpRight } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const GraphicDesign: React.FC = () => {
-  const isIntersecting = true;
+  const { ref, isIntersecting } = useScrollReveal<HTMLElement>();
 
   return (
     <section
       id="graphic-design"
+      ref={ref}
       className="relative z-10 w-full max-w-full bg-[#070707] text-[#f7f4ed] pt-10 sm:pt-14 pb-10 sm:pb-14 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/[0.04] overflow-hidden"
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
-          <div className={`reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
+          <div className={`reveal-fade-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
-              <span>04 / GRAPHIC DESIGN & IDENTITY</span>
+              <span>03 / GRAPHIC DESIGN & IDENTITY</span>
             </div>
             <h2
               className="text-[#fbf9f5] font-normal leading-[1.05] tracking-tight text-[36px] sm:text-[48px] md:text-[56px]"
@@ -29,7 +31,7 @@ export const GraphicDesign: React.FC = () => {
             </p>
           </div>
 
-          <div className={`text-right reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
+          <div className={`text-right reveal-fade-right ${isIntersecting ? 'is-revealed' : ''}`}>
             <a
               href="https://www.behance.net/cameliatimsili"
               target="_blank"
@@ -42,30 +44,21 @@ export const GraphicDesign: React.FC = () => {
           </div>
         </div>
 
-        {/* Editorial Masonry-Inspired Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
+        {/* Symmetrical Uniform Height Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {graphicProjects.map((project, index) => {
-            // Determine grid span based on layoutSpan
-            let colSpan = 'md:col-span-6 lg:col-span-4';
-            let aspectClass = 'aspect-[4/3]';
+            // Balanced mix of premium layout entry animations
+            const animationTypes = ['reveal-fade-left', 'reveal-fade-up', 'reveal-fade-right'];
+            const animClass = animationTypes[index % 3];
 
-            if (project.layoutSpan === 'large') {
-              colSpan = 'md:col-span-12 lg:col-span-8';
-              aspectClass = 'aspect-[16/10] sm:aspect-[16/9]';
-            } else if (project.layoutSpan === 'wide') {
-              colSpan = 'md:col-span-12 lg:col-span-8';
-              aspectClass = 'aspect-[16/9]';
-            } else if (project.layoutSpan === 'tall') {
-              colSpan = 'md:col-span-6 lg:col-span-4';
-              aspectClass = 'aspect-[3/4]';
-            }
-
-            const delayMs = (index % 4) * 100;
+            // Same aspect ratio for perfect alignment across columns
+            const aspectClass = 'aspect-[4/3]';
+            const delayMs = (index % 3) * 120;
 
             return (
               <article
                 key={project.id}
-                className={`reveal-fade-up ${colSpan} group relative flex flex-col bg-[#110f0f] rounded-2xl border border-white/10 overflow-hidden hover:border-[#dfb8aa]/40 transition-all duration-500 ${
+                className={`${animClass} group relative flex flex-col h-full bg-[#110f0f] rounded-2xl border border-white/10 overflow-hidden hover:border-[#dfb8aa]/40 transition-all duration-500 ${
                   isIntersecting ? 'is-revealed' : ''
                 }`}
                 style={{
@@ -73,7 +66,7 @@ export const GraphicDesign: React.FC = () => {
                 }}
               >
                 {/* Project Media Container */}
-                <div className={`relative w-full ${aspectClass} max-h-[460px] overflow-hidden bg-[#161313]`}>
+                <div className={`relative w-full ${aspectClass} overflow-hidden bg-[#161313]`}>
                   <img
                     src={project.image}
                     alt={project.title}
@@ -109,7 +102,7 @@ export const GraphicDesign: React.FC = () => {
                   </a>
                 </div>
 
-                {/* Information Block */}
+                {/* Information Block - flex-1 and flex-col ensures uniform heights */}
                 <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
                   <div>
                     <div className="flex items-center justify-between text-[11px] uppercase tracking-widest text-[#dfb8aa] mb-2 font-mono">

@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
               className="text-[32px] sm:text-[36px] text-[#dfb8aa] tracking-wide leading-none"
               style={{ fontFamily: "var(--font-signature), 'Pinyon Script', cursive" }}
             >
-              Cami.
+              Camille.
             </div>
             <p className="text-[#99918b] text-[13px] font-light max-w-xs leading-relaxed mt-1">
               Creative web development and brand identity design.

@@ -44,7 +44,7 @@ export const Navbar: React.FC = () => {
             }`}
             style={{ fontFamily: "var(--font-signature), 'Pinyon Script', cursive" }}
           >
-            Cami.
+            Camille.
           </span>
         </a>
 

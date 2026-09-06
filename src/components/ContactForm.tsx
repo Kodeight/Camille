@@ -142,10 +142,10 @@ export const ContactForm: React.FC = () => {
       <div className="w-full max-w-7xl mx-auto">
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-10 sm:mb-12">
-          <div className={`lg:col-span-7 reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
+          <div className={`lg:col-span-7 reveal-fade-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
-              <span>10 / INQUIRIES & COLLABORATIONS</span>
+              <span>09 / INQUIRIES & COLLABORATIONS</span>
             </div>
             <h2
               className="text-[#fbf9f5] font-normal leading-[1.05] tracking-tight text-[38px] sm:text-[50px] md:text-[62px]"

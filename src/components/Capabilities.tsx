@@ -45,10 +45,10 @@ export const Capabilities: React.FC = () => {
       <div className="w-full max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
-          <div className={`reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
+          <div className={`reveal-fade-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
-              <span>09 / CAPABILITIES & RIGOR</span>
+              <span>08 / CAPABILITIES & RIGOR</span>
             </div>
             <h2
               className="text-[#fbf9f5] font-normal leading-[1.05] tracking-tight text-[36px] sm:text-[48px] md:text-[56px]"

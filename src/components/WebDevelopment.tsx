@@ -15,10 +15,10 @@ export const WebDevelopment: React.FC = () => {
       <div className="w-full max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
-          <div className={`reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
+          <div className={`reveal-fade-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
-              <span>03 / WEB DEVELOPMENT</span>
+              <span>02 / WEB DEVELOPMENT</span>
             </div>
             <h2
               className="text-[#fbf9f5] font-normal leading-[1.05] tracking-tight text-[36px] sm:text-[48px] md:text-[56px]"
@@ -31,7 +31,7 @@ export const WebDevelopment: React.FC = () => {
             </p>
           </div>
 
-          <div className={`reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
+          <div className={`reveal-fade-right ${isIntersecting ? 'is-revealed' : ''}`}>
             <span className="inline-block text-[11px] sm:text-[12px] uppercase tracking-widest text-[#dfb8aa]/80 bg-[#dfb8aa]/10 border border-[#dfb8aa]/20 px-3.5 py-1.5 rounded-full font-mono">
               PRODUCTION CASE STUDY
             </span>
@@ -144,7 +144,7 @@ export const WebDevelopment: React.FC = () => {
 
                   {/* Right Column: Browser Viewport Mockup */}
                   <div
-                    className={`reveal-scale lg:col-span-7 flex flex-col gap-4 ${
+                    className={`reveal-fade-right lg:col-span-7 flex flex-col gap-4 ${
                       isIntersecting ? 'is-revealed' : ''
                     }`}
                     style={{ transitionDelay: '250ms' }}

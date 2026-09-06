@@ -19,7 +19,7 @@ export const AboutCamille: React.FC = () => {
           }`}
         >
           <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />
-          <span>07 / PHILOSOPHY & BACKGROUND</span>
+          <span>06 / PHILOSOPHY & BACKGROUND</span>
         </div>
 
         {/* Editorial Split Layout */}
@@ -55,7 +55,7 @@ export const AboutCamille: React.FC = () => {
                 className="text-[32px] sm:text-[38px] text-[#dfb8aa] tracking-wide"
                 style={{ fontFamily: "var(--font-signature), 'Pinyon Script', cursive" }}
               >
-                Cami.
+                Camille.
               </div>
               <div className="text-[12px] text-white/40 uppercase tracking-widest font-mono">
                 CREATIVE DEVELOPER & DESIGNER

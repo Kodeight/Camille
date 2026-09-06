@@ -28,7 +28,7 @@ export const Hero: React.FC = () => {
       <div className="w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* LEFT SIDE: Editorial Positioning, Headline, and Actions */}
-          <div className="lg:col-span-7 xl:col-span-6 flex flex-col items-start pointer-events-auto animate-fade-in-up">
+          <div className="lg:col-span-7 xl:col-span-6 flex flex-col items-start pointer-events-auto animate-blur-clear">
             {/* 1. Small Introduction Eyebrow Label */}
             <div
               id="eyebrow-label"
