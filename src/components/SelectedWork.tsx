@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import { webProjects, graphicProjects, ProjectCategoryFilter } from '../data/projects';
-import { useScrollReveal } from '../hooks/useScrollReveal';
 import { ArrowUpRight } from 'lucide-react';
 
 interface UnifiedProject {
@@ -27,7 +26,7 @@ const CATEGORIES: ProjectCategoryFilter[] = [
 
 export const SelectedWork: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<ProjectCategoryFilter>('ALL');
-  const { ref, isIntersecting } = useScrollReveal<HTMLElement>();
+  const isIntersecting = true;
 
   // Map both web projects and graphic projects into unified items
   const allProjects: UnifiedProject[] = useMemo(() => {
@@ -75,7 +74,6 @@ export const SelectedWork: React.FC = () => {
   return (
     <section
       id="projects"
-      ref={ref}
       className="relative z-10 w-full max-w-full bg-[#070707] text-[#f7f4ed] pt-14 sm:pt-18 pb-8 sm:pb-12 px-6 sm:px-10 md:px-14 lg:px-16 overflow-hidden"
     >
       <div className="w-full max-w-7xl mx-auto">
