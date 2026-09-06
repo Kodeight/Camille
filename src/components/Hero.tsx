@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowDown } from 'lucide-react';
+import { BackgroundVideo } from './BackgroundVideo';
 
 export const Hero: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -20,6 +21,9 @@ export const Hero: React.FC = () => {
       id="home"
       className="relative z-[1] w-full min-h-screen flex flex-col justify-between pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-10 px-6 sm:px-10 md:px-14 lg:px-16 pointer-events-none overflow-hidden"
     >
+      {/* Background Video (mouse-scrub controlled - contained within hero only) */}
+      <BackgroundVideo />
+
       {/* Editorial Content Container */}
       <div className="w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
