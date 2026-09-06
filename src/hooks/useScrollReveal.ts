@@ -9,7 +9,7 @@ interface UseScrollRevealOptions {
 export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
   options: UseScrollRevealOptions = {}
 ) {
-  const { threshold = 0.15, rootMargin = '0px 0px -60px 0px', triggerOnce = true } = options;
+  const { threshold = 0.01, rootMargin = '0px 0px -10px 0px', triggerOnce = true } = options;
   const ref = useRef<T | null>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const hasTriggered = useRef(false);
