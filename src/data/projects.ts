@@ -290,5 +290,5 @@ export const skillsData: SkillCategory[] = [
 export const socialLinks = {
   behance: 'https://www.behance.net/cameliatimsili',
   webProject: 'http://atlas-dz.vercel.app',
-  email: 'hello@camille.design',
+  email: 'cameliatimsiline@gmail.com',
 };

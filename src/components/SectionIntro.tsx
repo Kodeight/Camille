@@ -8,12 +8,12 @@ export const SectionIntro: React.FC = () => {
     <section
       id="about"
       ref={ref}
-      className="relative z-10 w-full bg-[#0a0909] text-[#f7f4ed] py-24 sm:py-32 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10 overflow-hidden"
+      className="relative z-10 w-full max-w-full bg-[#0a0909] text-[#f7f4ed] py-16 sm:py-20 lg:py-24 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10 overflow-hidden"
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Subtle Section Index & Marker */}
         <div
-          className={`flex items-center justify-between text-[11px] sm:text-[12px] tracking-[0.25em] uppercase text-[#dfb8aa]/90 font-light mb-12 sm:mb-16 transition-all duration-700 ${
+          className={`flex items-center justify-between text-[11px] sm:text-[12px] tracking-[0.25em] uppercase text-[#dfb8aa]/90 font-light mb-8 sm:mb-12 transition-all duration-700 ${
             isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
@@ -25,14 +25,14 @@ export const SectionIntro: React.FC = () => {
         </div>
 
         {/* Editorial Statement */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           <div
             className={`lg:col-span-8 transition-all duration-1000 delay-150 ${
               isIntersecting ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
             <h2
-              className="text-[#fbf9f5] font-normal leading-[1.08] tracking-tight text-[32px] sm:text-[46px] md:text-[56px] lg:text-[62px]"
+              className="text-[#fbf9f5] font-normal leading-[1.08] tracking-tight text-[32px] sm:text-[46px] md:text-[54px] lg:text-[60px]"
               style={{ fontFamily: 'var(--font-editorial)' }}
             >
               I build digital experiences where <span className="italic text-[#dfb8aa]">code meets creativity</span>.
@@ -62,9 +62,6 @@ export const SectionIntro: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Subtle Horizontal Divider */}
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent mt-16 sm:mt-24" />
       </div>
     </section>
   );

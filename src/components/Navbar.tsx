@@ -151,9 +151,9 @@ export const Navbar: React.FC = () => {
           <a
             href="#contact"
             onClick={() => setMobileMenuOpen(false)}
-            className="text-[20px] font-light text-[#dfb8aa] hover:underline underline-offset-4 block mb-1"
+            className="text-[17px] sm:text-[20px] font-light text-[#dfb8aa] hover:underline underline-offset-4 block mb-1 break-all"
           >
-            hello@camille.design
+            cameliatimsiline@gmail.com
           </a>
           <div className="text-[12px] text-white/40 font-light">
             Creative Developer &times; Graphic Designer

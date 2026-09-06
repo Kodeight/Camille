@@ -9,7 +9,7 @@ export const AboutCamille: React.FC = () => {
     <section
       id="profile"
       ref={ref}
-      className="relative z-10 w-full bg-[#0b0909] text-[#f7f4ed] py-24 sm:py-32 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10"
+      className="relative z-10 w-full max-w-full bg-[#0b0909] text-[#f7f4ed] py-16 sm:py-20 lg:py-24 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10 overflow-hidden"
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Section Index Marker */}

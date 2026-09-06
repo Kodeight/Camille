@@ -48,7 +48,7 @@ export const ContactForm: React.FC = () => {
 
   const contactEmail =
     (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_CONTACT_EMAIL) ||
-    'hello@camille.design';
+    'cameliatimsiline@gmail.com';
 
   const handleCopy = async () => {
     try {
@@ -137,11 +137,11 @@ export const ContactForm: React.FC = () => {
     <section
       id="contact"
       ref={ref}
-      className="relative z-10 w-full bg-[#070606] text-[#f7f4ed] py-24 sm:py-32 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10"
+      className="relative z-10 w-full max-w-full bg-[#070606] text-[#f7f4ed] py-16 sm:py-20 lg:py-24 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10 overflow-hidden"
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-10 sm:mb-12">
           <div className={`lg:col-span-7 reveal-slide-left ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="flex items-center gap-3 text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-[#dfb8aa] font-light mb-3">
               <span className="w-6 h-[1px] bg-[#dfb8aa]/60" />

@@ -16,7 +16,7 @@ import { Footer } from './components/Footer';
 
 export default function App() {
   return (
-    <div className="relative min-h-screen w-full bg-[#070707] text-[#f7f4ed] selection:bg-[#dfb8aa] selection:text-[#0f0d0d]">
+    <div className="relative min-h-screen w-full max-w-full overflow-x-clip bg-[#070707] text-[#f7f4ed] selection:bg-[#dfb8aa] selection:text-[#0f0d0d]">
       {/* Background Video (mouse-scrub controlled - hero only visual) */}
       <BackgroundVideo />
 
@@ -27,7 +27,7 @@ export default function App() {
       <Hero />
 
       {/* Editorial Content Sections (Layered cleanly over background on scroll) */}
-      <main className="relative z-10 w-full">
+      <main className="relative z-10 w-full max-w-full overflow-x-clip">
         <SectionIntro />
         <SelectedWork />
         <WebDevelopment />
