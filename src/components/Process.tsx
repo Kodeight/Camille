@@ -30,7 +30,7 @@ export const Process: React.FC = () => {
             </p>
           </div>
 
-          <div className={`text-white/40 text-[12px] font-mono tracking-widest hidden md:block reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
+          <div className={`text-white/40 text-[12px] font-mono tracking-widest hidden md:block reveal-fade-right ${isIntersecting ? 'is-revealed' : ''}`}>
             STEP-BY-STEP ITERATION
           </div>
         </div>
@@ -39,11 +39,13 @@ export const Process: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {processSteps.map((step, index) => {
             const delayMs = index * 100;
+            const animClasses = ['reveal-fade-left', 'reveal-fade-up', 'reveal-fade-right'];
+            const animClass = animClasses[index % animClasses.length];
 
             return (
               <div
                 key={step.number}
-                className={`reveal-fade-up group relative bg-[#110f0f] border border-white/10 rounded-2xl p-8 hover:border-[#dfb8aa]/40 transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between ${
+                className={`${animClass} group relative bg-[#110f0f] border border-white/10 rounded-2xl p-8 hover:border-[#dfb8aa]/40 transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between ${
                   isIntersecting ? 'is-revealed' : ''
                 }`}
                 style={{

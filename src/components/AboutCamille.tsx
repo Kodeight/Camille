@@ -26,7 +26,7 @@ export const AboutCamille: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Big Editorial Statement */}
           <div
-            className={`reveal-slide-left lg:col-span-7 ${
+            className={`reveal-fade-left lg:col-span-7 ${
               isIntersecting ? 'is-revealed' : ''
             }`}
           >
@@ -65,7 +65,7 @@ export const AboutCamille: React.FC = () => {
 
           {/* Right Column: Editorial Details Matrix & Portfolio Evidence */}
           <div
-            className={`reveal-slide-right lg:col-span-5 flex flex-col gap-6 ${
+            className={`reveal-fade-right lg:col-span-5 flex flex-col gap-6 ${
               isIntersecting ? 'is-revealed' : ''
             }`}
             style={{ transitionDelay: '150ms' }}

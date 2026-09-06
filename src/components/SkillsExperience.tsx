@@ -30,7 +30,7 @@ export const SkillsExperience: React.FC = () => {
             </p>
           </div>
 
-          <div className={`text-white/40 text-[12px] font-mono tracking-widest hidden md:block reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
+          <div className={`text-white/40 text-[12px] font-mono tracking-widest hidden md:block reveal-fade-right ${isIntersecting ? 'is-revealed' : ''}`}>
             PRACTICED & VERIFIED
           </div>
         </div>
@@ -39,11 +39,13 @@ export const SkillsExperience: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {skillsData.map((group, groupIdx) => {
             const delayMs = groupIdx * 120;
+            const animClasses = ['reveal-fade-left', 'reveal-fade-up', 'reveal-fade-right'];
+            const animClass = animClasses[groupIdx % animClasses.length];
 
             return (
               <div
                 key={group.category}
-                className={`reveal-fade-up bg-[#100e0e] border border-white/10 rounded-2xl p-8 hover:border-[#dfb8aa]/30 transition-all duration-500 ${
+                className={`${animClass} bg-[#100e0e] border border-white/10 rounded-2xl p-8 hover:border-[#dfb8aa]/30 transition-all duration-500 ${
                   isIntersecting ? 'is-revealed' : ''
                 }`}
                 style={{

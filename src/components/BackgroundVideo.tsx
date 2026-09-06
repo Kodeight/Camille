@@ -88,11 +88,11 @@ export const BackgroundVideo: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="absolute inset-0 z-0 entrance-bg overflow-hidden pointer-events-none">
       {/* Fallback Poster Background layer */}
       <div
         id="hero-poster-fallback"
-        className="absolute inset-0 z-0 w-full h-full bg-cover object-cover [background-position:center_center] lg:[background-position:68%_center] pointer-events-none"
+        className="absolute inset-0 w-full h-full bg-cover object-cover [background-position:center_center] lg:[background-position:68%_center] pointer-events-none"
         style={{
           backgroundImage: `url(${POSTER_URL})`,
         }}
@@ -111,19 +111,19 @@ export const BackgroundVideo: React.FC = () => {
         tabIndex={-1}
         onLoadedMetadata={handleInitCenterFrame}
         onCanPlay={handleInitCenterFrame}
-        className="absolute inset-0 z-0 w-full h-full object-cover [object-position:center_center] lg:[object-position:68%_center] pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover [object-position:center_center] lg:[object-position:68%_center] pointer-events-none"
         aria-hidden="true"
       />
 
       {/* Subtle cinematic vignette */}
       <div
         id="cinematic-vignette"
-        className="absolute inset-0 z-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
               'radial-gradient(circle at 50% 45%, transparent 35%, rgba(6, 6, 8, 0.45) 85%, rgba(6, 6, 8, 0.75) 100%), linear-gradient(to right, rgba(6, 6, 8, 0.75) 0%, rgba(6, 6, 8, 0.3) 42%, transparent 70%), linear-gradient(to bottom, rgba(6, 6, 8, 0.55) 0%, transparent 18%, transparent 82%, rgba(6, 6, 8, 0.75) 100%)',
         }}
       />
-    </>
+    </div>
   );
 };

@@ -158,7 +158,7 @@ export const ContactForm: React.FC = () => {
             </p>
           </div>
 
-          <div className={`lg:col-span-5 flex flex-col justify-end reveal-slide-right ${isIntersecting ? 'is-revealed' : ''}`}>
+          <div className={`lg:col-span-5 flex flex-col justify-end reveal-fade-right ${isIntersecting ? 'is-revealed' : ''}`}>
             <div className="bg-[#110f0f] border border-white/10 rounded-2xl p-6 flex flex-col gap-4">
               <div className="flex items-center justify-between">
                 <span className="text-[12px] uppercase tracking-wider text-white/50 font-mono">
@@ -198,7 +198,7 @@ export const ContactForm: React.FC = () => {
 
         {/* Real Contact Form Container */}
         <div
-          className={`reveal-fade-up bg-[#0e0c0c] border border-white/10 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-2xl ${
+          className={`reveal-blur-in bg-[#0e0c0c] border border-white/10 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-2xl ${
             isIntersecting ? 'is-revealed' : ''
           }`}
           style={{ transitionDelay: '150ms' }}

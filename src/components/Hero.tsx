@@ -28,11 +28,11 @@ export const Hero: React.FC = () => {
       <div className="w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           {/* LEFT SIDE: Editorial Positioning, Headline, and Actions */}
-          <div className="lg:col-span-7 xl:col-span-6 flex flex-col items-start pointer-events-auto animate-blur-clear">
+          <div className="lg:col-span-7 xl:col-span-6 flex flex-col items-start pointer-events-auto">
             {/* 1. Small Introduction Eyebrow Label */}
             <div
               id="eyebrow-label"
-              className="flex items-center gap-3 mb-5 sm:mb-6 select-none"
+              className="flex items-center gap-3 mb-5 sm:mb-6 select-none entrance-eyebrow"
             >
               <span className="w-7 sm:w-9 h-[1px] bg-[#dfb8aa]/75" aria-hidden="true" />
               <span className="text-[11px] sm:text-[12px] uppercase tracking-[0.3em] text-[#e8e4dc]/80 font-light">
@@ -43,7 +43,7 @@ export const Hero: React.FC = () => {
             {/* 2. Large Editorial Headline */}
             <h1
               id="editorial-headline"
-              className="text-[#fbf9f5] font-normal leading-[0.96] tracking-tight mb-5 sm:mb-6 select-none"
+              className="text-[#fbf9f5] font-normal leading-[0.96] tracking-tight mb-5 sm:mb-6 select-none entrance-headline"
               style={{
                 fontSize: 'clamp(48px, 6.2vw, 92px)',
                 fontFamily: 'var(--font-editorial)',
@@ -58,7 +58,7 @@ export const Hero: React.FC = () => {
             {/* 3. Supporting Copy */}
             <p
               id="supporting-copy"
-              className="text-[#ded8cb]/85 text-[15px] sm:text-[16px] leading-relaxed font-light max-w-[420px] mb-7 sm:mb-8"
+              className="text-[#ded8cb]/85 text-[15px] sm:text-[16px] leading-relaxed font-light max-w-[420px] mb-7 sm:mb-8 entrance-supporting"
             >
               A developer who builds and a designer who creates beautiful experiences.
             </p>
@@ -66,7 +66,7 @@ export const Hero: React.FC = () => {
             {/* 4. Interactive Action Pills */}
             <div
               id="action-pills"
-              className="flex flex-wrap items-center gap-2 sm:gap-2.5"
+              className="flex flex-wrap items-center gap-2 sm:gap-2.5 entrance-actions"
             >
               {/* Primary CTA */}
               <a

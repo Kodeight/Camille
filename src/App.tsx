@@ -17,7 +17,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   return (
-    <div className="relative min-h-screen w-full max-w-full overflow-x-clip bg-[#070707] text-[#f7f4ed] selection:bg-[#dfb8aa] selection:text-[#0f0d0d]">
+    <div className={`relative min-h-screen w-full max-w-full overflow-x-clip bg-[#070707] text-[#f7f4ed] selection:bg-[#dfb8aa] selection:text-[#0f0d0d] ${!loading ? 'page-ready' : ''}`}>
       {/* Cinematic Progress Loader */}
       {loading && <Loader onComplete={() => setLoading(false)} />}
 
