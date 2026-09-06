@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
   return (
     <footer
       id="site-footer"
-      className="relative z-10 w-full bg-[#050505] text-[#f7f4ed] pt-20 pb-12 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10"
+      className="relative z-10 w-full bg-[#050505] text-[#f7f4ed] pt-14 pb-10 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/10"
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Top Footer Row */}
@@ -40,8 +40,8 @@ export const Footer: React.FC = () => {
             <a href="#about" className="hover:text-[#dfb8aa] transition-colors">
               About
             </a>
-            <a href="#work" className="hover:text-[#dfb8aa] transition-colors">
-              Work
+            <a href="#projects" className="hover:text-[#dfb8aa] transition-colors">
+              Projects
             </a>
             <a href="#development" className="hover:text-[#dfb8aa] transition-colors">
               Web Development

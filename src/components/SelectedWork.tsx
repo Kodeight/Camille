@@ -78,7 +78,6 @@ export const SelectedWork: React.FC = () => {
       ref={ref}
       className="relative z-10 w-full max-w-full bg-[#070707] text-[#f7f4ed] pt-14 sm:pt-18 pb-8 sm:pb-12 px-6 sm:px-10 md:px-14 lg:px-16 overflow-hidden"
     >
-      <div id="work" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
       <div className="w-full max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-10">

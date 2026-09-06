@@ -17,10 +17,9 @@ export const Hero: React.FC = () => {
 
   return (
     <section
-      id="hero-section"
+      id="home"
       className="relative z-[1] w-full min-h-screen flex flex-col justify-between pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-10 px-6 sm:px-10 md:px-14 lg:px-16 pointer-events-none overflow-hidden"
     >
-      <div id="home" className="absolute top-0 left-0 w-0 h-0 pointer-events-none" />
       {/* Editorial Content Container */}
       <div className="w-full max-w-7xl mx-auto flex-1 flex flex-col justify-center my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -68,7 +67,7 @@ export const Hero: React.FC = () => {
               {/* Primary CTA */}
               <a
                 id="pill-view-work"
-                href="#work"
+                href="#projects"
                 className="inline-flex items-center justify-center bg-[#f5ede3] text-[#111111] font-medium border border-[#f5ede3] rounded-full text-[13px] sm:text-[14px] px-6 py-2.5 hover:bg-white hover:border-white transition-all duration-300 shadow-sm group"
               >
                 <span>View My Work</span>

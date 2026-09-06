@@ -27,7 +27,7 @@ export default function App() {
       <Hero />
 
       {/* Editorial Content Sections (Layered cleanly over background on scroll) */}
-      <main className="relative z-10 w-full max-w-full overflow-x-clip">
+      <main className="relative z-10 w-full max-w-full overflow-x-clip flex flex-col gap-y-16">
         <SectionIntro />
         <SelectedWork />
         <WebDevelopment />
