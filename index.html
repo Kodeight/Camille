@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Camille — Developer × Designer</title>
+    <meta name="description" content="Portfolio of Camille, creative developer and graphic designer, featuring cinematic video hero, selected web and graphic design work, interactive capabilities, and contact form." />
+    <meta property="og:title" content="Camille — Developer × Designer" />
+    <meta property="og:description" content="Portfolio of Camille, creative developer and graphic designer, featuring cinematic video hero, selected web and graphic design work, interactive capabilities, and contact form." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Camille — Developer × Designer" />
+    <meta name="twitter:description" content="Portfolio of Camille, creative developer and graphic designer, featuring cinematic video hero, selected web and graphic design work, interactive capabilities, and contact form." />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://camille.design/#person",
+          "name": "Camille",
+          "jobTitle": "Creative Developer & Graphic Designer",
+          "description": "Creative developer and graphic designer crafting bespoke digital experiences, brand identity systems, and modern web applications.",
+          "url": "https://camille.design",
+          "sameAs": [
+            "https://atlas-dz.vercel.app/",
+            "https://www.behance.net/camille"
+          ]
+        },
+        {
+          "@type": "ProfessionalService",
+          "name": "Camille — Developer × Designer",
+          "description": "Creative web development, UI/UX architecture, digital art direction, and brand systems.",
+          "url": "https://camille.design"
+        }
+      ]
+    }
+    </script>
+    <script>
+      (function() {
+        try {
+          var realFetch = window.fetch ? window.fetch.bind(window) : null;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: function() {
+              return realFetch;
+            },
+            set: function(val) {
+              realFetch = val;
+            }
+          });
+        } catch (e) {}
+      })();
+    </script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italianno&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" />
+    <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/5ac3fe7c6abd2f62067f266d89671492?family=HelveticaNowDisplay-Medium" type="text/css" />
+    <link rel="stylesheet" href="https://db.onlinewebfonts.com/c/1aa3377e489837a26d019bba501e779d?family=HelveticaNowDisplayW01-Rg" type="text/css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
