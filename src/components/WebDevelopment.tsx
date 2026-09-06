@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { webProjects } from '../data/projects';
 import { useScrollReveal } from '../hooks/useScrollReveal';
-import { ArrowUpRight, ExternalLink, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, CheckCircle2 } from 'lucide-react';
 
 export const WebDevelopment: React.FC = () => {
   const { ref, isIntersecting } = useScrollReveal<HTMLElement>();
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
 
   return (
     <section
@@ -42,11 +41,6 @@ export const WebDevelopment: React.FC = () => {
         {/* Featured Web Projects Showcase */}
         <div className="space-y-12 sm:space-y-16">
           {webProjects.map((project) => {
-            const previewImages = [
-              project.image,
-              ...(project.lookbookImage ? [project.lookbookImage] : []),
-            ];
-
             return (
               <div
                 key={project.id}
@@ -167,15 +161,13 @@ export const WebDevelopment: React.FC = () => {
                         <div className="text-[11px] text-white/50 font-mono tracking-wide bg-black/40 px-4 py-1 rounded-md border border-white/5 truncate max-w-[240px] sm:max-w-xs">
                           https://atlas-dz.vercel.app
                         </div>
-                        <div className="flex items-center gap-2 text-white/40">
-                          <Sparkles className="w-3.5 h-3.5 text-[#dfb8aa]/80" />
-                        </div>
+                        <div className="w-4 h-4" />
                       </div>
 
                       {/* Main Showcase Image Frame */}
                       <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#181515]">
                         <img
-                          src={previewImages[selectedImageIndex] || project.image}
+                          src={project.image}
                           alt={`${project.title} live interface preview`}
                           loading="lazy"
                           decoding="async"
@@ -196,29 +188,6 @@ export const WebDevelopment: React.FC = () => {
                         </a>
                       </div>
                     </div>
-
-                    {/* Image Selector Thumbnails (if multiple exist) */}
-                    {previewImages.length > 1 && (
-                      <div className="flex items-center gap-3 pt-2">
-                        {previewImages.map((imgSrc, idx) => (
-                          <button
-                            key={idx}
-                            type="button"
-                            onClick={() => setSelectedImageIndex(idx)}
-                            className={`relative w-20 h-14 rounded-lg overflow-hidden border transition-all cursor-pointer ${
-                              selectedImageIndex === idx
-                                ? 'border-[#dfb8aa] scale-105 shadow-md'
-                                : 'border-white/10 opacity-60 hover:opacity-100'
-                            }`}
-                          >
-                            <img src={imgSrc} alt="Preview thumb" className="w-full h-full object-cover" />
-                          </button>
-                        ))}
-                        <span className="text-[11px] text-white/40 font-light ml-2">
-                          Switch view
-                        </span>
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>

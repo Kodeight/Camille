@@ -7,7 +7,6 @@ export interface WebProject {
   description: string;
   url: string;
   image: string;
-  lookbookImage?: string;
   logoImage?: string;
   highlights: string[];
   featured: boolean;
@@ -40,8 +39,7 @@ export const webProjects: WebProject[] = [
     description:
       "Official fashion e-commerce store for Atlas, featuring women's and men's contemporary collections, editorial edits, and streamlined payment on delivery across 69 wilayas in Algeria.",
     url: 'http://atlas-dz.vercel.app',
-    image: '/projects/atlas/atlas-hero.jpg',
-    lookbookImage: '/projects/atlas/atlas-lookbook.jpg',
+    image: '/projects/atlas/atlas-lookbook.jpg',
     logoImage: '/projects/atlas/atlas-logo.png',
     highlights: [
       'Engineered dynamic cart and localized delivery flow across 69 Algerian wilayas',
