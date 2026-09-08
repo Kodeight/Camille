@@ -35,6 +35,11 @@ export const Navbar: React.FC = () => {
         <a
           id="brand-logo"
           href="#home"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.history.pushState(null, '', '#home');
+          }}
           className="flex items-center select-none group cursor-pointer"
           aria-label="Camille - Back to top"
         >
@@ -57,7 +62,18 @@ export const Navbar: React.FC = () => {
             <a
               key={link.label}
               href={link.href}
-              className="relative py-1 hover:text-white transition-colors duration-200 group"
+              onClick={(e) => {
+                if (link.href.startsWith('#')) {
+                  e.preventDefault();
+                  const targetId = link.href.slice(1);
+                  const target = document.getElementById(targetId);
+                  if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    window.history.pushState(null, '', link.href);
+                  }
+                }
+              }}
+              className="relative py-1 hover:text-white transition-colors duration-200 group cursor-pointer"
             >
               <span>{link.label}</span>
               <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-[#dfb8aa] transition-all duration-300 group-hover:w-full" />
@@ -70,6 +86,11 @@ export const Navbar: React.FC = () => {
           <a
             id="desktop-cta"
             href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              window.history.pushState(null, '', '#contact');
+            }}
             className="inline-flex items-center gap-1.5 text-[14px] font-light text-[#dfb8aa] hover:text-white underline underline-offset-4 decoration-[#dfb8aa]/40 hover:decoration-white transition-all duration-200 cursor-pointer"
           >
             <span>Let's talk</span>
@@ -124,8 +145,21 @@ export const Navbar: React.FC = () => {
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-[32px] font-normal text-white hover:text-[#dfb8aa] transition-colors"
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  if (link.href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = link.href.slice(1);
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                      setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        window.history.pushState(null, '', link.href);
+                      }, 150);
+                    }
+                  }
+                }}
+                className="text-[32px] font-normal text-white hover:text-[#dfb8aa] transition-colors cursor-pointer"
                 style={{
                   fontFamily: 'var(--font-editorial)',
                   transitionDelay: `${mobileMenuOpen ? idx * 60 : 0}ms`,

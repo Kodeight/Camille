@@ -8,7 +8,7 @@ export const SectionIntro: React.FC = () => {
     <section
       id="about"
       ref={ref}
-      className="relative z-10 w-full max-w-full bg-[#0a0909] text-[#f7f4ed] pt-20 sm:pt-24 pb-16 sm:pb-20 lg:pb-24 px-6 sm:px-10 md:px-14 lg:px-16 overflow-hidden"
+      className="relative z-10 w-full max-w-full bg-[#0a0909] text-[#f7f4ed] pt-20 sm:pt-24 pb-16 sm:pb-20 lg:pb-24 px-6 sm:px-10 md:px-14 lg:px-16 overflow-hidden scroll-mt-20"
     >
       {/* Seamless Transition Glow Border from Hero */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#dfb8aa]/50 to-transparent pointer-events-none z-10" />

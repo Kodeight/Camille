@@ -72,7 +72,15 @@ export const Hero: React.FC = () => {
               <a
                 id="pill-view-work"
                 href="#projects"
-                className="inline-flex items-center justify-center bg-[#f5ede3] text-[#111111] font-medium border border-[#f5ede3] rounded-full text-[13px] sm:text-[14px] px-6 py-2.5 hover:bg-white hover:border-white transition-all duration-300 shadow-sm group"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.getElementById('projects');
+                  if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    window.history.pushState(null, '', '#projects');
+                  }
+                }}
+                className="inline-flex items-center justify-center bg-[#f5ede3] text-[#111111] font-medium border border-[#f5ede3] rounded-full text-[13px] sm:text-[14px] px-6 py-2.5 hover:bg-white hover:border-white transition-all duration-300 shadow-sm group cursor-pointer"
               >
                 <span>View My Work</span>
                 <span className="ml-1.5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
@@ -84,6 +92,11 @@ export const Hero: React.FC = () => {
               <a
                 id="pill-pitch"
                 href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  window.history.pushState(null, '', '#contact');
+                }}
                 className="inline-flex items-center justify-center bg-transparent text-white/90 border border-white/25 rounded-full text-[13px] sm:text-[14px] px-5 py-2.5 hover:border-white/70 hover:bg-white/10 hover:text-white transition-all duration-300 cursor-pointer"
               >
                 Pitch an idea
@@ -93,6 +106,11 @@ export const Hero: React.FC = () => {
               <a
                 id="pill-hello"
                 href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  window.history.pushState(null, '', '#contact');
+                }}
                 className="inline-flex items-center justify-center bg-transparent text-white/80 border border-white/20 rounded-full text-[13px] sm:text-[14px] px-4.5 py-2.5 hover:border-white/60 hover:bg-white/10 hover:text-white transition-all duration-300 cursor-pointer"
               >
                 Send a brief hello

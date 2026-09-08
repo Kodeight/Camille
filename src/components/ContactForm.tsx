@@ -137,7 +137,7 @@ export const ContactForm: React.FC = () => {
     <section
       id="contact"
       ref={ref}
-      className="relative z-10 w-full max-w-full bg-[#070707] text-[#f7f4ed] pt-10 sm:pt-14 pb-12 sm:pb-16 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/[0.04] overflow-hidden"
+      className="relative z-10 w-full max-w-full bg-[#070707] text-[#f7f4ed] pt-10 sm:pt-14 pb-12 sm:pb-16 px-6 sm:px-10 md:px-14 lg:px-16 border-t border-white/[0.04] overflow-hidden scroll-mt-20"
     >
       <div className="w-full max-w-7xl mx-auto">
         {/* Header */}
