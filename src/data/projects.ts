@@ -51,6 +51,27 @@ export const webProjects: WebProject[] = [
     year: '2026',
     role: 'Lead Frontend Developer & UI Designer',
   },
+  {
+    id: 'jasmile-clinic',
+    title: 'JASMILE',
+    subtitle: 'Clinique Dentaire Moderne à Hydra, Alger',
+    category: 'Web Development',
+    tags: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Healthcare UI', 'Online Booking'],
+    description:
+      'Official web platform for JASMILE, a modern dental clinic located in Hydra, Algiers. Features interactive treatment showcases, practitioner directories, 3D imaging spotlights, and online appointment booking.',
+    url: 'https://jasmile-clinique-dentaire.vercel.app/',
+    image: '/projects/jasmile/jasmile-hero.jpg',
+    logoImage: '/projects/jasmile/jasmile-logo.png',
+    highlights: [
+      'Online appointment reservation flow with intuitive date selection and service triage',
+      'Comprehensive dental care catalogs: orthodontics, implantology, 3D imaging, and aesthetic dentistry',
+      'Warm patient-first visual identity with high-contrast typography and soothing medical palette',
+      'Responsive full-viewport layout built with zero-latency navigation and optimized asset delivery',
+    ],
+    featured: true,
+    year: '2026',
+    role: 'Lead Frontend Developer & UI Designer',
+  },
 ];
 
 export const graphicProjects: GraphicProject[] = [

@@ -70,6 +70,15 @@ export const Footer: React.FC = () => {
               <span>Atlas Project</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
             </a>
+            <a
+              href="https://jasmile-clinique-dentaire.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#dfb8aa] transition-colors inline-flex items-center gap-1.5 group"
+            >
+              <span>JASMILE Clinic</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+            </a>
             <button
               onClick={scrollToTop}
               className="hover:text-[#dfb8aa] transition-colors inline-flex items-center gap-1 group cursor-pointer"

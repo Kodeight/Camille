@@ -33,7 +33,7 @@ export const WebDevelopment: React.FC = () => {
 
           <div className={`reveal-fade-right ${isIntersecting ? 'is-revealed' : ''}`}>
             <span className="inline-block text-[11px] sm:text-[12px] uppercase tracking-widest text-[#dfb8aa]/80 bg-[#dfb8aa]/10 border border-[#dfb8aa]/20 px-3.5 py-1.5 rounded-full font-mono">
-              PRODUCTION CASE STUDY
+              PRODUCTION CASE STUDIES
             </span>
           </div>
         </div>
@@ -41,6 +41,8 @@ export const WebDevelopment: React.FC = () => {
         {/* Featured Web Projects Showcase */}
         <div className="space-y-12 sm:space-y-16">
           {webProjects.map((project) => {
+            const displayUrl = project.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+
             return (
               <div
                 key={project.id}
@@ -136,7 +138,7 @@ export const WebDevelopment: React.FC = () => {
                         rel="noopener noreferrer"
                         className="text-[13px] text-white/60 hover:text-white transition-colors underline underline-offset-4 hidden sm:inline-flex items-center gap-1"
                       >
-                        <span>atlas-dz.vercel.app</span>
+                        <span>{displayUrl}</span>
                         <ExternalLink className="w-3 h-3 opacity-60" />
                       </a>
                     </div>
@@ -158,7 +160,7 @@ export const WebDevelopment: React.FC = () => {
                           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                         </div>
                         <div className="text-[11px] text-white/50 font-mono tracking-wide bg-black/40 px-4 py-1 rounded-md border border-white/5 truncate max-w-[240px] sm:max-w-xs">
-                          https://atlas-dz.vercel.app
+                          {project.url}
                         </div>
                         <div className="w-4 h-4" />
                       </div>
@@ -181,7 +183,7 @@ export const WebDevelopment: React.FC = () => {
                           className="absolute inset-0 bg-black/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
                         >
                           <span className="inline-flex items-center gap-2 bg-[#dfb8aa] text-[#110f0f] text-[13px] font-medium px-5 py-2.5 rounded-full shadow-lg">
-                            <span>Open Atlas Live Website</span>
+                            <span>Open {project.title} Live Website</span>
                             <ArrowUpRight className="w-4 h-4" />
                           </span>
                         </a>
