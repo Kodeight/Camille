@@ -151,7 +151,7 @@ export const BackgroundVideo: React.FC = () => {
         tabIndex={-1}
         disablePictureInPicture
         disableRemotePlayback
-        className="absolute inset-0 w-full h-full object-cover [object-position:center_center] lg:[object-position:68%_center] pointer-events-none transform-gpu will-change-transform"
+        className="absolute inset-0 w-full h-full object-cover [object-position:center_center] lg:[object-position:68%_center] pointer-events-none"
         aria-hidden="true"
       />
 
