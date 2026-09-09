@@ -3,23 +3,21 @@ import React, { useEffect, useRef } from 'react';
 const VIDEO_URL = '/camille-hero.mp4';
 const POSTER_URL = '/camille-hero-poster.jpg';
 
-// Video is 24fps (1 frame ≈ 0.0417s). Minimum delta to avoid redundant sub-frame seeks
-const MIN_FRAME_DELTA = 0.035;
-
 export const BackgroundVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const targetTimeRef = useRef<number>(0);
-  const lastRequestedTimeRef = useRef<number>(-1);
+  const lastAppliedTimeRef = useRef<number>(-1);
   const isSeekingRef = useRef<boolean>(false);
-  const watchdogTimerRef = useRef<number | null>(null);
+  const lastSeekTimestampRef = useRef<number>(0);
   const rafIdRef = useRef<number | null>(null);
   const isFinePointerRef = useRef<boolean>(true);
+  const hasInitializedCenterRef = useRef<boolean>(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Video must remain strictly paused at all times
+    // Video must remain permanently paused
     video.pause();
 
     const enforcePause = () => {
@@ -30,32 +28,25 @@ export const BackgroundVideo: React.FC = () => {
     video.addEventListener('play', enforcePause);
     video.addEventListener('playing', enforcePause);
 
-    // Watchdog management
-    const clearWatchdog = () => {
-      if (watchdogTimerRef.current !== null) {
-        clearTimeout(watchdogTimerRef.current);
-        watchdogTimerRef.current = null;
-      }
-    };
-
-    // Center frame initialization
-    const initCenter = () => {
+    // Initial center frame: execute ONCE only on initial metadata load
+    const initCenterOnce = () => {
+      if (hasInitializedCenterRef.current) return;
       if (video.duration && !Number.isNaN(video.duration)) {
+        hasInitializedCenterRef.current = true;
         video.pause();
         const center = video.duration / 2;
         targetTimeRef.current = center;
-        lastRequestedTimeRef.current = center;
+        lastAppliedTimeRef.current = center;
         video.currentTime = center;
       }
     };
 
     if (video.readyState >= 1 && video.duration) {
-      initCenter();
+      initCenterOnce();
     }
-    video.addEventListener('loadedmetadata', initCenter);
-    video.addEventListener('canplay', initCenter);
+    video.addEventListener('loadedmetadata', initCenterOnce);
 
-    // Fine hover check (Desktop cursor vs Mobile touch)
+    // Fine pointer check for desktop mouse vs mobile touch
     const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
     isFinePointerRef.current = finePointerQuery.matches;
 
@@ -64,64 +55,55 @@ export const BackgroundVideo: React.FC = () => {
       if (!e.matches && video.duration) {
         const center = video.duration / 2;
         targetTimeRef.current = center;
-        lastRequestedTimeRef.current = center;
+        lastAppliedTimeRef.current = center;
         video.currentTime = center;
       }
     };
     finePointerQuery.addEventListener('change', handlePointerChange);
 
-    // Seek dispatcher: manages single active seek and watchdog
-    const dispatchSeek = (target: number) => {
+    // Core apply target logic: applies the latest coalesced target
+    const applyTarget = () => {
       if (!video || !video.duration || Number.isNaN(video.duration)) return;
 
-      isSeekingRef.current = true;
-      lastRequestedTimeRef.current = target;
+      const now = performance.now();
 
-      // Cancel/replace watchdog whenever a new seek starts
-      clearWatchdog();
-      watchdogTimerRef.current = window.setTimeout(() => {
-        // Watchdog timeout fallback: recover from missed or stalled seeked events
-        isSeekingRef.current = false;
-        clearWatchdog();
-        checkNextSeek();
-      }, 120);
+      // Minimal recovery fallback: if 75ms has elapsed since the last seek dispatch,
+      // or if native video.seeking is false, treat the seek as complete
+      if (isSeekingRef.current) {
+        if (!video.seeking || (now - lastSeekTimestampRef.current > 75)) {
+          isSeekingRef.current = false;
+        } else {
+          return; // Browser still seeking current frame
+        }
+      }
 
-      video.currentTime = target;
-    };
-
-    // Evaluate whether a new seek should be issued based on coalesced latest target
-    const checkNextSeek = () => {
-      if (!video || !video.duration || Number.isNaN(video.duration)) return;
-
-      // Rule 4: If video is currently seeking, DO NOT issue another seek
-      if (isSeekingRef.current) return;
-
-      const latestTarget = targetTimeRef.current;
-      // Rule 9: Ignore tiny target changes that would produce visually identical frames
-      if (Math.abs(latestTarget - lastRequestedTimeRef.current) >= MIN_FRAME_DELTA) {
-        dispatchSeek(latestTarget);
+      const target = targetTimeRef.current;
+      // Avoid continuously writing identical timestamps (must differ by at least ~half a frame)
+      if (Math.abs(target - lastAppliedTimeRef.current) >= 0.02) {
+        isSeekingRef.current = true;
+        lastSeekTimestampRef.current = now;
+        lastAppliedTimeRef.current = target;
+        video.currentTime = target;
       }
     };
 
-    // When seeked fires:
-    // 1. Immediately clear internal seeking lock and cancel watchdog
-    // 2. Compare latest target with last requested target
-    // 3. If meaningfully different, perform ONE new seek; otherwise do nothing
+    // When seeked fires, immediately clear seeking and apply latest target if cursor moved
     const handleSeeked = () => {
-      clearWatchdog();
       isSeekingRef.current = false;
-      checkNextSeek();
+      applyTarget();
     };
     video.addEventListener('seeked', handleSeeked);
 
-    // ONE requestAnimationFrame scheduler: coalesces desired target and triggers seek only when idle
+    // Single requestAnimationFrame scheduler
     const tick = () => {
-      checkNextSeek();
+      applyTarget();
       rafIdRef.current = requestAnimationFrame(tick);
     };
     rafIdRef.current = requestAnimationFrame(tick);
 
-    // Mouse movement updates ONLY targetTimeRef.current
+    // Mouse movement: calculates targetTime from horizontal cursor position
+    // targetTime = (mouseX / window.innerWidth) * video.duration
+    // Cursor is ALWAYS allowed to update targetTimeRef.current
     const handleMouseMove = (e: MouseEvent) => {
       if (!isFinePointerRef.current) return;
       if (!video || !video.duration || Number.isNaN(video.duration)) return;
@@ -130,20 +112,16 @@ export const BackgroundVideo: React.FC = () => {
       const ratio = Math.max(0, Math.min(1, e.clientX / viewportWidth));
       const duration = video.duration;
 
-      // Direct mapping across full horizontal viewport:
-      // far left = 0.01s (beginning), center = duration / 2, far right = duration - 0.01s (end)
-      const newTarget = Math.max(0.01, Math.min(duration - 0.01, ratio * duration));
-      targetTimeRef.current = newTarget;
+      // Clamp target between 0.01 and duration - 0.01 (safe margin against edge/ended state)
+      targetTimeRef.current = Math.max(0.01, Math.min(duration - 0.01, ratio * duration));
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     return () => {
-      clearWatchdog();
       video.removeEventListener('play', enforcePause);
       video.removeEventListener('playing', enforcePause);
-      video.removeEventListener('loadedmetadata', initCenter);
-      video.removeEventListener('canplay', initCenter);
+      video.removeEventListener('loadedmetadata', initCenterOnce);
       video.removeEventListener('seeked', handleSeeked);
       finePointerQuery.removeEventListener('change', handlePointerChange);
       window.removeEventListener('mousemove', handleMouseMove);
@@ -152,17 +130,6 @@ export const BackgroundVideo: React.FC = () => {
       }
     };
   }, []);
-
-  const handleInitCenterFrame = () => {
-    const video = videoRef.current;
-    if (video && video.duration && !Number.isNaN(video.duration)) {
-      video.pause();
-      const center = video.duration / 2;
-      targetTimeRef.current = center;
-      lastRequestedTimeRef.current = center;
-      video.currentTime = center;
-    }
-  };
 
   return (
     <div className="absolute inset-0 z-0 entrance-bg overflow-hidden pointer-events-none">
@@ -188,8 +155,6 @@ export const BackgroundVideo: React.FC = () => {
         tabIndex={-1}
         disablePictureInPicture
         disableRemotePlayback
-        onLoadedMetadata={handleInitCenterFrame}
-        onCanPlay={handleInitCenterFrame}
         className="absolute inset-0 w-full h-full object-cover [object-position:center_center] lg:[object-position:68%_center] pointer-events-none transform-gpu will-change-transform"
         aria-hidden="true"
       />
