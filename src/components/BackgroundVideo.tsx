@@ -3,12 +3,15 @@ import React, { useEffect, useRef } from 'react';
 const VIDEO_URL = '/camille-hero.mp4';
 const POSTER_URL = '/camille-hero-poster.jpg';
 
+// Minimum frame delta (~half a frame at 24-30fps) to skip redundant seeks
+const MIN_FRAME_DELTA = 0.02;
+
 export const BackgroundVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const targetTimeRef = useRef<number>(0);
   const lastAppliedTimeRef = useRef<number>(-1);
   const isSeekingRef = useRef<boolean>(false);
-  const lastSeekTimestampRef = useRef<number>(0);
+  const rafScheduledRef = useRef<boolean>(false);
   const rafIdRef = useRef<number | null>(null);
   const isFinePointerRef = useRef<boolean>(true);
   const hasInitializedCenterRef = useRef<boolean>(false);
@@ -61,49 +64,40 @@ export const BackgroundVideo: React.FC = () => {
     };
     finePointerQuery.addEventListener('change', handlePointerChange);
 
-    // Core apply target logic: applies the latest coalesced target
-    const applyTarget = () => {
+    // Attempt to seek to the latest target if no seek is currently active
+    const applyLatestTarget = () => {
       if (!video || !video.duration || Number.isNaN(video.duration)) return;
 
-      const now = performance.now();
-
-      // Minimal recovery fallback: if 75ms has elapsed since the last seek dispatch,
-      // or if native video.seeking is false, treat the seek as complete
-      if (isSeekingRef.current) {
-        if (!video.seeking || (now - lastSeekTimestampRef.current > 75)) {
-          isSeekingRef.current = false;
-        } else {
-          return; // Browser still seeking current frame
-        }
-      }
+      // If the browser is currently seeking, wait for the 'seeked' event
+      if (isSeekingRef.current) return;
 
       const target = targetTimeRef.current;
-      // Avoid continuously writing identical timestamps (must differ by at least ~half a frame)
-      if (Math.abs(target - lastAppliedTimeRef.current) >= 0.02) {
+      // Skip redundant seeks if the target hasn't meaningfully changed
+      if (Math.abs(target - lastAppliedTimeRef.current) >= MIN_FRAME_DELTA) {
         isSeekingRef.current = true;
-        lastSeekTimestampRef.current = now;
         lastAppliedTimeRef.current = target;
         video.currentTime = target;
       }
     };
 
-    // When seeked fires, immediately clear seeking and apply latest target if cursor moved
+    // When the browser finishes decoding the sought frame, release the lock and process the latest target
     const handleSeeked = () => {
       isSeekingRef.current = false;
-      applyTarget();
+      applyLatestTarget();
     };
     video.addEventListener('seeked', handleSeeked);
 
-    // Single requestAnimationFrame scheduler
-    const tick = () => {
-      applyTarget();
-      rafIdRef.current = requestAnimationFrame(tick);
+    // Schedule ONE RAF when the mouse actually moves (no permanent polling loop)
+    const scheduleRAF = () => {
+      if (rafScheduledRef.current) return;
+      rafScheduledRef.current = true;
+      rafIdRef.current = requestAnimationFrame(() => {
+        rafScheduledRef.current = false;
+        applyLatestTarget();
+      });
     };
-    rafIdRef.current = requestAnimationFrame(tick);
 
-    // Mouse movement: calculates targetTime from horizontal cursor position
-    // targetTime = (mouseX / window.innerWidth) * video.duration
-    // Cursor is ALWAYS allowed to update targetTimeRef.current
+    // Mouse movement updates targetTimeRef only, then schedules ONE RAF
     const handleMouseMove = (e: MouseEvent) => {
       if (!isFinePointerRef.current) return;
       if (!video || !video.duration || Number.isNaN(video.duration)) return;
@@ -112,8 +106,10 @@ export const BackgroundVideo: React.FC = () => {
       const ratio = Math.max(0, Math.min(1, e.clientX / viewportWidth));
       const duration = video.duration;
 
-      // Clamp target between 0.01 and duration - 0.01 (safe margin against edge/ended state)
+      // Safe clamp to avoid edge/ended boundaries
       targetTimeRef.current = Math.max(0.01, Math.min(duration - 0.01, ratio * duration));
+
+      scheduleRAF();
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
