@@ -2,5 +2,7 @@
   "name": "Camille",
   "description": "Portfolio of Camille, creative developer and graphic designer, featuring cinematic interactive video hero, selected web and graphic design work, interactive capabilities, and contact form.",
   "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
