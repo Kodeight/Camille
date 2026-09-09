@@ -2,14 +2,13 @@ import React, { useEffect, useRef } from 'react';
 
 const VIDEO_URL = '/camille-hero.mp4';
 const POSTER_URL = '/camille-hero-poster.jpg';
-// Sensitivity around 0.8 tuned for responsive, zero-delay follow
 const SENSITIVITY = 0.82;
 
 export const BackgroundVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const prevXRef = useRef<number | null>(null);
   const targetTimeRef = useRef<number>(0);
-  const isSeekingRef = useRef<boolean>(false);
+  const appliedTargetRef = useRef<number>(0);
   const rafIdRef = useRef<number | null>(null);
   const isFinePointerRef = useRef<boolean>(true);
 
@@ -17,7 +16,7 @@ export const BackgroundVideo: React.FC = () => {
     const video = videoRef.current;
     if (!video) return;
 
-    // The video must remain strictly paused at all times
+    // Video must remain paused at all times
     video.pause();
 
     const enforcePause = () => {
@@ -29,23 +28,21 @@ export const BackgroundVideo: React.FC = () => {
     video.addEventListener('playing', enforcePause);
 
     // Center frame initialization
-    const initCenterFrame = () => {
+    const initCenter = () => {
       if (video.duration && !Number.isNaN(video.duration)) {
         video.pause();
         const center = video.duration / 2;
         targetTimeRef.current = center;
-        if (!video.seeking && !isSeekingRef.current) {
-          isSeekingRef.current = true;
-          video.currentTime = center;
-        }
+        appliedTargetRef.current = center;
+        video.currentTime = center;
       }
     };
 
     if (video.readyState >= 1 && video.duration) {
-      initCenterFrame();
+      initCenter();
     }
-    video.addEventListener('loadedmetadata', initCenterFrame);
-    video.addEventListener('canplay', initCenterFrame);
+    video.addEventListener('loadedmetadata', initCenter);
+    video.addEventListener('canplay', initCenter);
 
     // Fine hover check (Desktop cursor vs Mobile touch)
     const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -54,67 +51,45 @@ export const BackgroundVideo: React.FC = () => {
     const handlePointerChange = (e: MediaQueryListEvent) => {
       isFinePointerRef.current = e.matches;
       if (!e.matches && video.duration) {
-        // Mobile behavior: centered frame, no cursor scrubbing, paused
         const center = video.duration / 2;
         targetTimeRef.current = center;
+        appliedTargetRef.current = center;
         video.currentTime = center;
       }
     };
     finePointerQuery.addEventListener('change', handlePointerChange);
 
-    // Controlled seek mechanism: executes a seek only if the video is not already seeking
-    const performSeek = () => {
+    // Seek helper function
+    const applySeekIfNeeded = () => {
       if (!video || !video.duration || Number.isNaN(video.duration)) return;
-
-      // Prevent seek flooding: do NOT start another seek if one is in flight
-      if (video.seeking || isSeekingRef.current) {
-        return;
-      }
+      if (video.seeking) return; // Never start a seek while seeking
 
       const target = targetTimeRef.current;
-      // Skip redundant seek if already on this target
-      if (Math.abs(video.currentTime - target) < 0.005) {
-        return;
+      if (Math.abs(target - appliedTargetRef.current) > 0.005) {
+        appliedTargetRef.current = target;
+        video.currentTime = target;
       }
-
-      isSeekingRef.current = true;
-      video.currentTime = target;
     };
 
-    // When the current seek completes, immediately check if mouse moved to a new target
+    // When seeked fires, immediately apply newest target if changed
     const handleSeeked = () => {
-      isSeekingRef.current = false;
       if (!video || !video.duration || Number.isNaN(video.duration)) return;
-
-      // Always prioritize the latest mouse position
       const target = targetTimeRef.current;
-      if (Math.abs(video.currentTime - target) >= 0.005) {
-        performSeek();
+      if (Math.abs(target - appliedTargetRef.current) > 0.005) {
+        appliedTargetRef.current = target;
+        video.currentTime = target;
       }
     };
     video.addEventListener('seeked', handleSeeked);
 
-    // Process latest target time efficiently via requestAnimationFrame
-    const processFrame = () => {
-      if (video && video.duration && !Number.isNaN(video.duration)) {
-        // Synchronize with native video.seeking if finished
-        if (!video.seeking) {
-          isSeekingRef.current = false;
-        }
-
-        if (!video.seeking && !isSeekingRef.current) {
-          const target = targetTimeRef.current;
-          if (Math.abs(video.currentTime - target) >= 0.005) {
-            performSeek();
-          }
-        }
-      }
-      rafIdRef.current = requestAnimationFrame(processFrame);
+    // ONE requestAnimationFrame loop to process the latest target
+    const tick = () => {
+      applySeekIfNeeded();
+      rafIdRef.current = requestAnimationFrame(tick);
     };
+    rafIdRef.current = requestAnimationFrame(tick);
 
-    rafIdRef.current = requestAnimationFrame(processFrame);
-
-    // Track horizontal mouse movement without triggering React re-renders
+    // Mouse movement updates targetTimeRef ONLY
     const handleMouseMove = (e: MouseEvent) => {
       if (!isFinePointerRef.current) return;
       if (!video || !video.duration || Number.isNaN(video.duration)) return;
@@ -133,15 +108,10 @@ export const BackgroundVideo: React.FC = () => {
       const duration = video.duration;
       const viewportWidth = window.innerWidth || 1920;
 
-      // Convert horizontal delta into video timeline offset based on viewport and duration
       const deltaOffset = (deltaX / viewportWidth) * duration * SENSITIVITY;
-
-      // Clamp target time between 0 and duration
       const newTarget = Math.max(0, Math.min(duration, targetTimeRef.current + deltaOffset));
+      
       targetTimeRef.current = newTarget;
-
-      // Trigger immediate seek if video is idle
-      performSeek();
     };
 
     const handleMouseLeave = () => {
@@ -159,8 +129,8 @@ export const BackgroundVideo: React.FC = () => {
     return () => {
       video.removeEventListener('play', enforcePause);
       video.removeEventListener('playing', enforcePause);
-      video.removeEventListener('loadedmetadata', initCenterFrame);
-      video.removeEventListener('canplay', initCenterFrame);
+      video.removeEventListener('loadedmetadata', initCenter);
+      video.removeEventListener('canplay', initCenter);
       video.removeEventListener('seeked', handleSeeked);
       finePointerQuery.removeEventListener('change', handlePointerChange);
       window.removeEventListener('mousemove', handleMouseMove);
@@ -178,6 +148,7 @@ export const BackgroundVideo: React.FC = () => {
       video.pause();
       const center = video.duration / 2;
       targetTimeRef.current = center;
+      appliedTargetRef.current = center;
       video.currentTime = center;
     }
   };
@@ -194,7 +165,7 @@ export const BackgroundVideo: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* Interactive Hero Video - GPU composited, zero layout thrashing */}
+      {/* Interactive Hero Video */}
       <video
         ref={videoRef}
         id="background-video"
