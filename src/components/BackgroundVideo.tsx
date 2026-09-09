@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from 'react';
 
 const VIDEO_URL = '/camille-hero.mp4';
 const POSTER_URL = '/camille-hero-poster.jpg';
-const SENSITIVITY = 0.82;
 
 export const BackgroundVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const prevXRef = useRef<number | null>(null);
   const targetTimeRef = useRef<number>(0);
-  const appliedTargetRef = useRef<number>(0);
+  const lastAppliedTimeRef = useRef<number>(-1);
+  const isSeekingRef = useRef<boolean>(false);
+  const lastSeekStartTimeRef = useRef<number>(0);
   const rafIdRef = useRef<number | null>(null);
   const isFinePointerRef = useRef<boolean>(true);
 
@@ -16,7 +16,7 @@ export const BackgroundVideo: React.FC = () => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Video must remain paused at all times
+    // Video must remain strictly paused at all times
     video.pause();
 
     const enforcePause = () => {
@@ -33,7 +33,7 @@ export const BackgroundVideo: React.FC = () => {
         video.pause();
         const center = video.duration / 2;
         targetTimeRef.current = center;
-        appliedTargetRef.current = center;
+        lastAppliedTimeRef.current = center;
         video.currentTime = center;
       }
     };
@@ -53,78 +53,81 @@ export const BackgroundVideo: React.FC = () => {
       if (!e.matches && video.duration) {
         const center = video.duration / 2;
         targetTimeRef.current = center;
-        appliedTargetRef.current = center;
+        lastAppliedTimeRef.current = center;
         video.currentTime = center;
       }
     };
     finePointerQuery.addEventListener('change', handlePointerChange);
 
-    // Seek helper function
-    const applySeekIfNeeded = () => {
-      if (!video || !video.duration || Number.isNaN(video.duration)) return;
-      if (video.seeking) return; // Never start a seek while seeking
-
-      const target = targetTimeRef.current;
-      if (Math.abs(target - appliedTargetRef.current) > 0.005) {
-        appliedTargetRef.current = target;
-        video.currentTime = target;
-      }
+    // Safe seek executor
+    const performSeekToTarget = (target: number) => {
+      isSeekingRef.current = true;
+      lastSeekStartTimeRef.current = performance.now();
+      lastAppliedTimeRef.current = target;
+      video.currentTime = target;
     };
 
-    // When seeked fires, immediately apply newest target if changed
+    // When seeked fires, CLEAR the seeking lock FIRST, then immediately check newest target
     const handleSeeked = () => {
+      // 1. Clear seeking lock FIRST
+      isSeekingRef.current = false;
+
       if (!video || !video.duration || Number.isNaN(video.duration)) return;
+
+      // 2. Immediately check whether targetTimeRef has changed
       const target = targetTimeRef.current;
-      if (Math.abs(target - appliedTargetRef.current) > 0.005) {
-        appliedTargetRef.current = target;
-        video.currentTime = target;
+      if (Math.abs(target - lastAppliedTimeRef.current) >= 0.01) {
+        performSeekToTarget(target);
       }
     };
     video.addEventListener('seeked', handleSeeked);
 
-    // ONE requestAnimationFrame loop to process the latest target
+    // Main RAF loop: processes latest target with watchdog fallback
     const tick = () => {
-      applySeekIfNeeded();
+      if (video && video.duration && !Number.isNaN(video.duration)) {
+        const now = performance.now();
+
+        // WATCHDOG FALLBACK:
+        // If isSeekingRef is true, verify if a seek is genuinely stuck (>150ms)
+        // or if the video element finished seeking. Never let the lock stay stuck.
+        if (isSeekingRef.current) {
+          if (!video.seeking || (now - lastSeekStartTimeRef.current > 150)) {
+            isSeekingRef.current = false;
+          }
+        }
+
+        // If not seeking, check if we need to apply the latest target
+        if (!isSeekingRef.current) {
+          const target = targetTimeRef.current;
+          if (Math.abs(target - lastAppliedTimeRef.current) >= 0.01) {
+            performSeekToTarget(target);
+          }
+        }
+      }
+
       rafIdRef.current = requestAnimationFrame(tick);
     };
+
     rafIdRef.current = requestAnimationFrame(tick);
 
-    // Mouse movement updates targetTimeRef ONLY
+    // Full horizontal viewport cursor mapping:
+    // far LEFT -> beginning of video (0.01s safe clamp)
+    // CENTER -> middle of video (duration / 2)
+    // far RIGHT -> end of video (duration - 0.01s safe clamp)
     const handleMouseMove = (e: MouseEvent) => {
       if (!isFinePointerRef.current) return;
       if (!video || !video.duration || Number.isNaN(video.duration)) return;
 
-      const currentX = e.clientX;
-      if (prevXRef.current === null) {
-        prevXRef.current = currentX;
-        return;
-      }
-
-      const deltaX = currentX - prevXRef.current;
-      prevXRef.current = currentX;
-
-      if (deltaX === 0) return;
-
-      const duration = video.duration;
       const viewportWidth = window.innerWidth || 1920;
+      const ratio = Math.max(0, Math.min(1, e.clientX / viewportWidth));
+      const duration = video.duration;
 
-      const deltaOffset = (deltaX / viewportWidth) * duration * SENSITIVITY;
-      const newTarget = Math.max(0, Math.min(duration, targetTimeRef.current + deltaOffset));
-      
+      // Clamp between 0.01 and duration - 0.01 to prevent boundary black-outs
+      const newTarget = Math.max(0.01, Math.min(duration - 0.01, ratio * duration));
       targetTimeRef.current = newTarget;
     };
 
-    const handleMouseLeave = () => {
-      prevXRef.current = null;
-    };
-
-    const handleMouseEnter = (e: MouseEvent) => {
-      prevXRef.current = e.clientX;
-    };
-
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mouseleave', handleMouseLeave);
-    window.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
       video.removeEventListener('play', enforcePause);
@@ -134,8 +137,6 @@ export const BackgroundVideo: React.FC = () => {
       video.removeEventListener('seeked', handleSeeked);
       finePointerQuery.removeEventListener('change', handlePointerChange);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseleave', handleMouseLeave);
-      window.removeEventListener('mouseenter', handleMouseEnter);
       if (rafIdRef.current !== null) {
         cancelAnimationFrame(rafIdRef.current);
       }
@@ -148,7 +149,7 @@ export const BackgroundVideo: React.FC = () => {
       video.pause();
       const center = video.duration / 2;
       targetTimeRef.current = center;
-      appliedTargetRef.current = center;
+      lastAppliedTimeRef.current = center;
       video.currentTime = center;
     }
   };
