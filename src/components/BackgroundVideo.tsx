@@ -3,8 +3,8 @@ import React, { useEffect, useRef } from 'react';
 const VIDEO_URL = '/camille-hero.mp4';
 const POSTER_URL = '/camille-hero-poster.jpg';
 
-// Minimum frame delta (~half a frame at 24-30fps) to skip redundant seeks
-const MIN_FRAME_DELTA = 0.02;
+// Minimum frame delta (~quarter frame) to ensure continuous responsiveness across all regions
+const MIN_FRAME_DELTA = 0.01;
 
 export const BackgroundVideo: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
